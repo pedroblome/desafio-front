@@ -12,6 +12,16 @@ const CadastrarAnimal = () => {
   const [nomeCategoria, setNomeCategoria] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [status, setStatus] = useState('DISPONIVEL');
+  const [showPopup, setShowPopup] = useState(false)
+  
+  const clearForm = () => {
+    setNome('');
+    setDescricao('');
+    setUrlImagem('');
+    setNomeCategoria('');
+    setDataNascimento('');
+    setStatus('DISPONIVEL');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +45,7 @@ const CadastrarAnimal = () => {
       .then(response => response.json())
       .then(data => {
         console.log('Animal cadastrado com sucesso:', data);
-        // Redirecionar ou limpar o formulário
+        //aparece pop up dizendo que criou adcinou o novo dado! opção de cadastrar outro animal ou ok.
         navigate("/")
       })
       .catch(error => console.error('Error cadastrando animal:', error));
@@ -44,7 +54,6 @@ const CadastrarAnimal = () => {
   return (
     <div>
       <TopBar/>
-      Cadastrar Animal
       <div className="cadastrar-animal">
       <h1>Cadastrar Animal</h1>
       <form onSubmit={handleSubmit}>

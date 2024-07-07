@@ -43,8 +43,8 @@ const ListAnimals = () => {
             <p>Categoria: {animal.nomeCategoria}</p>
             <p>Data de Nascimento: {animal.dataNascimento}</p>
             <p>Idade: {animal.idade} anos</p>
-            <button className="button-status"
-              style={{ backgroundColor: animal.status === 'DISPONIVEL' ? 'green' : 'red', color: 'white' }}
+            <button
+              className={`button-status ${animal.status === 'DISPONIVEL' ? 'disponivel' : 'adotado'}`}
               onClick={() => handleChangeStatus(animal.id)}
             >
               {animal.status}
@@ -62,8 +62,8 @@ const ListAnimals = () => {
             <p>Categoria: {animal.nomeCategoria}</p>
             <p>Data de Nascimento: {animal.dataNascimento}</p>
             <p>Idade: {animal.idade} anos</p>
-            <button  className="button-status"
-              style={{ backgroundColor: animal.status === 'DISPONIVEL' ? 'green' : 'red', color: 'white' }}
+            <button
+              className={`button-status ${animal.status === 'DISPONIVEL' ? 'disponivel' : 'adotado'}`}
               onClick={() => handleChangeStatus(animal.id)}
             >
               {animal.status}

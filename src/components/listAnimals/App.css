@@ -9,17 +9,33 @@
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  width: 200px;
-  /* Ajuste conforme necessário */
+  width: 200px; /* Ajuste conforme necessário */
 }
 
-.button-status {
-  background-color: #4CAF50;
-  /* Verde para todos inicialmente */
+/* Estilo padrão para botões */
+.animal-list button {
   color: white;
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+/* Estilos específicos para cada status */
+.animal-list button.disponivel {
+  background-color: #4CAF50; /* Verde */
+}
+
+.animal-list button.adotado {
+  background-color: #f44336; /* Vermelho */
+}
+
+/* Estilos de hover para cada status */
+.animal-list button.disponivel:hover {
+  background-color: #367c39; /* Verde escuro */
+}
+
+.animal-list button.adotado:hover {
+  background-color: #d32f2f; /* Vermelho escuro */
 }
