@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
+import TopBar from '../topBar/App';
+
 
 const CadastrarAnimal = () => {
+  const navigate = useNavigate();
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [urlImagem, setUrlImagem] = useState('');
   const [nomeCategoria, setNomeCategoria] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [status, setStatus] = useState('DISPONIVEL');
-  const [idade, setIdade] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,8 +22,7 @@ const CadastrarAnimal = () => {
       urlImagem,
       nomeCategoria,
       dataNascimento,
-      status,
-      idade: parseInt(idade, 10)
+      status
     };
 
     fetch('http://localhost:8080/api/animals', {
@@ -34,12 +36,16 @@ const CadastrarAnimal = () => {
       .then(data => {
         console.log('Animal cadastrado com sucesso:', data);
         // Redirecionar ou limpar o formulário
+        navigate("/")
       })
       .catch(error => console.error('Error cadastrando animal:', error));
   };
 
   return (
-    <div className="cadastrar-animal">
+    <div>
+      <TopBar/>
+      Cadastrar Animal
+      <div className="cadastrar-animal">
       <h1>Cadastrar Animal</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -63,19 +69,17 @@ const CadastrarAnimal = () => {
           <input type="date" value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} required />
         </label>
         <label>
-          Idade:
-          <input type="number" value={idade} onChange={(e) => setIdade(e.target.value)} required />
-        </label>
-        <label>
           Status:
           <select value={status} onChange={(e) => setStatus(e.target.value)} required>
             <option value="DISPONIVEL">Disponível</option>
             <option value="ADOTADO">Adotado</option>
           </select>
         </label>
-        <button type="submit">Cadastrar</button>
+        <button type="submit" onClick={handleSubmit}>Cadastrar</button>
       </form>
     </div>
+    </div>
+    
   );
 };
 

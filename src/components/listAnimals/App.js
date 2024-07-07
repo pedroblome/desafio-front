@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import TopBar from '../topBar/App';
 const ListAnimals = () => {
   const [animals, setAnimals] = useState([]);
 
@@ -31,6 +32,7 @@ const ListAnimals = () => {
 
   return (
     <div>
+      <TopBar />
       <h1>Animais Disponíveis</h1>
       <div className="animal-list">
         {availableAnimals.map(animal => (
@@ -41,7 +43,7 @@ const ListAnimals = () => {
             <p>Categoria: {animal.nomeCategoria}</p>
             <p>Data de Nascimento: {animal.dataNascimento}</p>
             <p>Idade: {animal.idade} anos</p>
-            <button
+            <button className="button-status"
               style={{ backgroundColor: animal.status === 'DISPONIVEL' ? 'green' : 'red', color: 'white' }}
               onClick={() => handleChangeStatus(animal.id)}
             >
@@ -60,7 +62,7 @@ const ListAnimals = () => {
             <p>Categoria: {animal.nomeCategoria}</p>
             <p>Data de Nascimento: {animal.dataNascimento}</p>
             <p>Idade: {animal.idade} anos</p>
-            <button
+            <button  className="button-status"
               style={{ backgroundColor: animal.status === 'DISPONIVEL' ? 'green' : 'red', color: 'white' }}
               onClick={() => handleChangeStatus(animal.id)}
             >
