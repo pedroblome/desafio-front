@@ -39,3 +39,20 @@
 .animal-list button.adotado:hover {
   background-color: #d32f2f; /* Vermelho escuro */
 }
+
+.card {
+  height: flex; /* Altura fixa para todos os cards */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-img-top {
+  width: 100%; /* Ajusta a largura da imagem para cobrir o card */
+  height: 200px; /* Altura fixa para a imagem */
+  object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem distorção */
+}
+
+.card-body {
+  flex: 1; /* Ocupa o espaço restante do card */
+  overflow: hidden; /* Previne o conteúdo de transbordar */
+}
