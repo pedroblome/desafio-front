@@ -36,3 +36,13 @@
     background-color: #218838;
   }
   
+  .cadastrar-animal form-control {
+    width: 100%;
+
+  }
+  
+.datePicker .react-datepicker-wrapper,
+.datePicker .react-datepicker__input-container,
+.form-label {
+  width: 100%;
+}

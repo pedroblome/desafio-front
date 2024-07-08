@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopBar from '../topBar/App';
+import DatePicker from 'react-datepicker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CadastrarAnimal = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [urlImagem, setUrlImagem] = useState('');
   const [categorias, setCategorias] = useState([]);
   const [nomeCategoria, setNomeCategoria] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
+  const [dataNascimento, setDataNascimento] = useState(new Date());
   const [status, setStatus] = useState('DISPONIVEL');
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/categories', {
+    fetch(`${apiUrl}/api/categories`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -26,6 +29,14 @@ const CadastrarAnimal = () => {
       .catch(error => console.error('Erro ao buscar categorias:', error));
   }, []);
 
+  const handleDateChange = (date) => {
+    if (date > new Date()) {
+      alert('Não é possível escolher uma data de nascimento no futuro.');
+      return;
+    }
+    setDataNascimento(date);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newAnimal = {
@@ -33,11 +44,11 @@ const CadastrarAnimal = () => {
       descricao,
       urlImagem,
       nomeCategoria,
-      dataNascimento,
+      dataNascimento: dataNascimento.toISOString().slice(0, 10),
       status
     };
 
-    fetch('http://localhost:8080/api/animals', {
+    fetch(`${apiUrl}/api/animals`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -72,7 +83,6 @@ const CadastrarAnimal = () => {
           <div className="mb-3">
             <label htmlFor="nomeCategoria" className="form-label">Categoria:</label>
             <select className="form-select" id="nomeCategoria" value={nomeCategoria} onChange={e => setNomeCategoria(e.target.value)} required>
-              <option value="">Selecione uma categoria</option>
               {categorias.map((categoria) => (
                 <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
               ))}
@@ -80,7 +90,14 @@ const CadastrarAnimal = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="dataNascimento" className="form-label">Data de Nascimento:</label>
-            <input type="date" className="form-control" id="dataNascimento" value={dataNascimento} onChange={e => setDataNascimento(e.target.value)} required />
+            <DatePicker
+              selected={dataNascimento}
+              onChange={handleDateChange}
+              dateFormat="dd/MM/yyyy"
+              maxDate={new Date()}
+              className="form-control"
+              locale="pt-BR"
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="status" className="form-label">Status:</label>

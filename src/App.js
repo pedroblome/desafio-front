@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ListAnimals from "./components/listAnimals/App";
 import CreateAnimals from "./components/createAnimals/App";
-import TopBar from "./components/topBar/App";
 
 
 class App extends Component {

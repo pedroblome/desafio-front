@@ -5,10 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const ListAnimals = () => {
+  const apiUrl = process.env.REACT_APP_API_URL
+
   const [animals, setAnimals] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/animals')
+    fetch(`${apiUrl}/api/animals`)
       .then(response => response.json())
       .then(data => {
         const sortedAnimals = sortAnimals(data);
@@ -18,7 +20,7 @@ const ListAnimals = () => {
   }, []);
 
   const handleChangeStatus = (id) => {
-    fetch(`http://localhost:8080/api/animals/changeStatus/${id}`, { method: 'PUT' })
+    fetch(`${apiUrl}/api/animals/changeStatus/${id}`, { method: 'PUT' })
       .then(response => {
         if (response.ok) {
           setAnimals(prevAnimals =>

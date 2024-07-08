@@ -8,7 +8,7 @@ const TopBar = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#" onClick={() => navigate('/')}>
+        <Navbar.Brand>
           <img src="https://www.waproject.com.br/assets/image/logo.svg" alt="WA Project logo" height="30" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
