@@ -89,7 +89,7 @@ const CadastrarAnimal = () => {
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="dataNascimento" className="form-label">Data de Nascimento:</label>
+            <label htmlFor="dataNascimento" className="form-label" >Data de Nascimento:</label><br></br>
             <DatePicker
               selected={dataNascimento}
               onChange={handleDateChange}
