@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { format, parseISO } from 'date-fns'; // Importar funções de formatar e parsear datas
 import TopBar from '../topBar/App';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importa o Bootstrap
-import './App.css'; // Importa os estilos CSS adicionais
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 const ListAnimals = () => {
   const [animals, setAnimals] = useState([]);
@@ -39,6 +40,29 @@ const ListAnimals = () => {
   const availableAnimals = animals.filter(animal => animal.status === 'DISPONIVEL');
   const adoptedAnimals = animals.filter(animal => animal.status === 'ADOTADO');
 
+  const renderAnimalCard = (animal) => (
+    <div key={animal.id} className="col-md-4 col-sm-6 col-xs-12 mb-4">
+      <div className="card">
+        <a href={animal.urlImagem} target="_blank" rel="noopener noreferrer">
+          <img src={animal.urlImagem} className="card-img-top" alt={animal.nome} />
+        </a>
+        <div className="card-body">
+          <h5 className="card-title">{animal.nome}</h5>
+          <p className="card-text">{animal.descricao}</p>
+          <p className="card-text"><small>Categoria: {animal.nomeCategoria}</small></p>
+          <p className="card-text"><small>Data de Nascimento: {format(parseISO(animal.dataNascimento), 'dd/MM/yyyy')}</small></p>
+          <p className="card-text"><small>Idade: {animal.idade}</small></p>
+          <button
+            className={`btn ${animal.status === 'DISPONIVEL' ? 'btn-success' : 'btn-danger'}`}
+            onClick={() => handleChangeStatus(animal.id)}
+          >
+            {animal.status}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div>
       <TopBar />
@@ -59,26 +83,5 @@ const ListAnimals = () => {
     </div>
   );
 };
-
-const renderAnimalCard = (animal) => (
-  <div key={animal.id} className="col-md-4 col-sm-6 col-xs-12 mb-4">
-    <div className="card">
-      <img src={animal.urlImagem} className="card-img-top" alt={animal.nome} />
-      <div className="card-body">
-        <h5 className="card-title">{animal.nome}</h5>
-        <p className="card-text">{animal.descricao}</p>
-        <p className="card-text"><small>Categoria: {animal.nomeCategoria}</small></p>
-        <p className="card-text"><small>Data de Nascimento: {animal.dataNascimento}</small></p>
-        <p className="card-text"><small>Idade: {animal.idade} anos</small></p>
-        <button
-          className={`btn ${animal.status === 'DISPONIVEL' ? 'btn-success' : 'btn-danger'}`}
-          onClick={() => handleChangeStatus(animal.id)}
-        >
-          {animal.status}
-        </button>
-      </div>
-    </div>
-  </div>
-);
 
 export default ListAnimals;

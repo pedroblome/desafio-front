@@ -27,9 +27,9 @@
 }
 
 .top-bar button.btn-about {
-  background-color: #555; /* Cor diferente para o segundo botão */
+  background-color: #0f0101; /* Cor diferente para o segundo botão */
 }
 
 .top-bar button:hover {
-  background-color: #367c39; /* Mudança de cor ao passar o mouse */
+  background-color: #0f0101; /* Mudança de cor ao passar o mouse */
 }

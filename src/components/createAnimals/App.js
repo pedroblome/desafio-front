@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopBar from '../topBar/App';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,9 +8,23 @@ const CadastrarAnimal = () => {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [urlImagem, setUrlImagem] = useState('');
+  const [categorias, setCategorias] = useState([]);
   const [nomeCategoria, setNomeCategoria] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [status, setStatus] = useState('DISPONIVEL');
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/categories', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+      .then(data => {
+        setCategorias(data);
+      })
+      .catch(error => console.error('Erro ao buscar categorias:', error));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,19 +44,18 @@ const CadastrarAnimal = () => {
       },
       body: JSON.stringify(newAnimal)
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Animal cadastrado com sucesso:', data);
-        navigate("/");
-      })
-      .catch(error => console.error('Error cadastrando animal:', error));
+    .then(response => response.json())
+    .then(data => {
+      console.log('Animal cadastrado com sucesso:', data);
+      navigate("/");
+    })
+    .catch(error => console.error('Erro cadastrando animal:', error));
   };
 
   return (
     <div>
       <TopBar />
       <div className="container mt-5">
-        <h1 className="mb-3">Cadastrar Animal</h1>
         <form className="w-50 mx-auto" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="nome" className="form-label">Nome:</label>
@@ -58,7 +71,12 @@ const CadastrarAnimal = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="nomeCategoria" className="form-label">Categoria:</label>
-            <input type="text" className="form-control" id="nomeCategoria" value={nomeCategoria} onChange={e => setNomeCategoria(e.target.value)} required />
+            <select className="form-select" id="nomeCategoria" value={nomeCategoria} onChange={e => setNomeCategoria(e.target.value)} required>
+              <option value="">Selecione uma categoria</option>
+              {categorias.map((categoria) => (
+                <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
+              ))}
+            </select>
           </div>
           <div className="mb-3">
             <label htmlFor="dataNascimento" className="form-label">Data de Nascimento:</label>
@@ -75,7 +93,6 @@ const CadastrarAnimal = () => {
         </form>
       </div>
     </div>
-
   );
 };
 

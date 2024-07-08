@@ -47,9 +47,14 @@
 }
 
 .card-img-top {
-  width: 100%; /* Ajusta a largura da imagem para cobrir o card */
-  height: 200px; /* Altura fixa para a imagem */
-  object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem distorção */
+  width: 200px;  /* Define a largura das imagens */
+  height: 200px; /* Define a altura das imagens */
+  object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+  display: block; /* Remove espaços extras ao redor da imagem */
+  margin: 0 auto; /* Centraliza a imagem horizontalmente */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border:3px #d32f2f;
 }
 
 .card-body {
